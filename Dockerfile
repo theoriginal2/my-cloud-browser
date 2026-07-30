@@ -1,9 +1,17 @@
-FROM m1k1o/neko:chromium
+FROM ghcr.io/linuxserver/baseimage-kasmvnc:debianbookworm
 
-EXPOSE 8080
+USER root
 
-ENV NEKO_BIND=:8080
-ENV NEKO_PASSWORD=
-ENV NEKO_CHROME_ARGS="--no-sandbox --disable-dev-shm-usage --disable-gpu --no-first-run --disable-infobars"
+RUN apt-get update && \
+    apt-get install -y chromium && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
-# Do NOT override the image's startup command
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
+
+ENV TITLE="Cloud Browser"
+
+EXPOSE 3000
+
+CMD ["/start.sh"]
