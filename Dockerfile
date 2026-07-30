@@ -12,6 +12,6 @@ RUN chmod +x /start.sh
 
 ENV TITLE="Cloud Browser"
 
-EXPOSE 8080
+EXPOSE 3000
 
 CMD ["/start.sh"]
